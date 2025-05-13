@@ -7,8 +7,7 @@
     <style>
         #main { width: 600px; height: 400px; margin: 20px auto; }
         .refresh-btn {
-            display: block;
-            margin: 20px auto;
+            display: block
             padding: 10px 20px;
             background: #5470C6;
             color: white;
