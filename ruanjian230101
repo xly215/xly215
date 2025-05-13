@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>电池健康状态监控</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <style>
+        #main { width: 600px; height: 400px; margin: 20px auto; }
+        .refresh-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #5470C6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <button class="refresh-btn" onclick="refreshData()">刷新数据</button>
+
+    <script>
+        let myChart = echarts.init(document.getElementById('main'));
+        
+        function initChart(value) {
+            let option = {
+                series: [{
+                    type: 'gauge',
+                    center: ['50%', '60%'],
+                    startAngle: 200,
+                    endAngle: -20,
+                    min: 0,
+                    max: 100,
+                    splitNumber: 10,
+                    axisLine: {
+                        lineStyle: {
+                            width: 25,
+                            color: [
+                                [0.3, '#FF6B6B'],
+                                [0.7, '#FFD93D'],
+                                [1, '#6BCB77']
+                            ]
+                        }
+                    },
+                    pointer: { show: false },
+                    axisTick: { show: false },
+                    splitLine: { show: false },
+                    axisLabel: { show: false },
+                    title: { offsetCenter: [0, '30%'], fontSize: 20 },
+                    detail: {
+                        fontSize: 40,
+                        offsetCenter: [0, '0%'],
+                        valueAnimation: true,
+                        formatter: '{value}%',
+                        color: 'auto'
+                    },
+                    data: [{ value: value }]
+                }]
+            };
+            myChart.setOption(option);
+        }
+
+        function refreshData() {
+            let newValue = Math.floor(Math.random() * 101);
+            if (newValue < 60) {
+                alert('警告：健康度低于60%！');
+            }
+            initChart(newValue);
+        }
+
+        // 初始化
+        initChart(75);
+    </script>
+</body>
+</html>
